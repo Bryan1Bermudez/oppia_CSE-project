@@ -23,6 +23,8 @@ import json
 import os
 import re
 
+
+
 from core import utils
 
 from typing import List, TypedDict
@@ -50,6 +52,10 @@ class TestSuiteDict(TypedDict):
 
     name: str
     module: str
+
+
+def printError(error) :
+    print("\033[91m {}\033[00m" .format(error))
 
 
 def get_acceptance_test_suites_from_ci_config_file() -> List[TestSuiteDict]:
@@ -254,10 +260,10 @@ def main() -> None:
 
     if len(acceptance_test_suites_difference) > 0:
         raise Exception(
-            'Acceptance test suites and CI test suites are not in sync. '
+            printError('Acceptance test suites and CI test suites are not in sync. '
             'The following suites are not in sync: %s. Please update the '
             'CI config file for acceptance tests at core/tests/ci-test-'
-            'suite-configs/acceptance.json with the suites listed above.'
+            'suite-configs/acceptance.json with the suites listed above.')
                 % (json.dumps(acceptance_test_suites_difference))
         )
     print('Done!')
@@ -274,9 +280,9 @@ def main() -> None:
         ) == sorted(webdriverio_conf_test_modules)
     ):
         raise Exception(
-            'One or more test module from webdriverio or webdriverio_desktop '
+            printError('One or more test module from webdriverio or webdriverio_desktop '
             'directory is missing from wdio.conf.js. Please update wdio.conf.js'
-            ' with the missing test modules.'
+            ' with the missing test modules.')
         )
     print('Done!')
 
@@ -290,10 +296,11 @@ def main() -> None:
 
     if len(e2e_test_suites_difference) > 0:
         raise Exception(
-            'E2E test suites and CI test suites are not in sync. The following '
+            printError('E2E test suites and CI test suites are not in sync. The following '
             'suites are not in sync: %s. Please update the CI config file for '
             'e2e tests at core/tests/ci-test-suite-configs/e2e.json with the '
-            'suites listed above.' % (
+            'suites listed above.')
+             % (
                 json.dumps(e2e_test_suites_difference))
         )
     print('Done!')
