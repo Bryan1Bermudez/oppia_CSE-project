@@ -124,6 +124,8 @@ class CheckTestsAreCapturedInCiTest(test_utils.GenericTestBase):
         super().tearDown()
         self.temp_directory.cleanup()
 
+
+
     def test_compute_test_suites_difference(self) -> None:
         test_suites_one: List[check_tests_are_captured_in_ci.TestSuiteDict] = [
             {
@@ -376,6 +378,9 @@ class CheckTestsAreCapturedInCiTest(test_utils.GenericTestBase):
                     )
                 ):
                     check_tests_are_captured_in_ci.main()
+
+    def printError(error):
+        print("\033[91m {}\033[00m".format(error))
 
     def test_check_tests_are_captured_in_ci_with_no_error(self) -> None:
         def mock_get_acceptance_test_suites_from_ci_config_file() -> List[check_tests_are_captured_in_ci.TestSuiteDict]: # pylint: disable=line-too-long
