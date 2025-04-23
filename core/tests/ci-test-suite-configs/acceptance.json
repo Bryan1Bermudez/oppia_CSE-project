@@ -137,6 +137,10 @@
       "module": "core/tests/puppeteer-acceptance-tests/specs/logged-out-user/play-lesson-in-different-languages-and-listen-to-voiceovers.spec.ts"
     },
     {
+      "name": "logged-out-user/play-through-embedded-lesson",
+      "module": "core/tests/puppeteer-acceptance-tests/specs/logged-out-user/play-through-embedded-lesson
+    },
+    {
       "name": "logged-out-user/play-through-lesson-while-getting-feedback-and-hints",
       "module": "core/tests/puppeteer-acceptance-tests/specs/logged-out-user/play-through-lesson-while-getting-feedback-and-hints.spec.ts"
     },
