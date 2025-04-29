@@ -21,11 +21,13 @@ import {UserFactory} from '../../utilities/common/user-factory';
 import testConstants from '../../utilities/common/test-constants';
 import {LoggedOutUser} from '../../utilities/user/logged-out-user';
 import {ConsoleReporter} from '../../utilities/common/console-reporter';
+import {ExplorationEditor} from '../../utilities/user/exploration-editor'
 
 const DEFAULT_SPEC_TIMEOUT_MSECS = testConstants.DEFAULT_SPEC_TIMEOUT_MSECS;
 
 describe('Logged-out User', function () {
   let loggedOutUser: LoggedOutUser;
+  let explorationEditor : ExplorationEditor
 
   beforeAll(async function () {
     loggedOutUser = await UserFactory.createLoggedOutUser();
@@ -36,6 +38,7 @@ describe('Logged-out User', function () {
     async function () {
       await loggedOutUser.embedThisLesson();
       await loggedOutUser.changeLessonLanguage();
+      await loggedOutUser.expectPageLanguageToMatch();
     }, DEFAULT_SPEC_TIMEOUT_MSECS
   );
 
@@ -49,14 +52,15 @@ describe('Logged-out User', function () {
   it(
     'should not be able to answer a previously-answered question.',
     async function () {
-     await loggedOutUser.verifyCannotnswerPrevioulyAnsreQuestion();
+     await loggedOutUser.verifyCannotnswerPrevioulyAnsweredQuestion();
     }, DEFAULT_SPEC_TIMEOUT_MSECS
   );
 
   it(
     'should be able to use concept cards and hints wherever provided.',
     async function () {
-      //await loggedOutUser.<enter function>();
+      await loggedOutUser.viewHint();
+      await loggedOutUser.closeHintModal();
       //await loggedOutUser.<enter function>();
     }, DEFAULT_SPEC_TIMEOUT_MSECS
   );
@@ -72,8 +76,8 @@ describe('Logged-out User', function () {
   it(
     'should be able to restart the exploration upon refreshing the page.',
     async function () {
-      await loggedOutUser.<enter function>();
-      await loggedOutUser.<enter function>();
+      await loggedOutUser.reloadPage();
+      await loggedOutUser.expectProgressRemainder(false);
     }, DEFAULT_SPEC_TIMEOUT_MSECS
   );
 
@@ -81,7 +85,6 @@ describe('Logged-out User', function () {
     'should receive a confirmation via a toast message upon completeing the exploration.',
     async function () {
       await loggedOutUser.expectExplorationCompletionToastMessage(await this.page.waitForSelector(explorationCompletionToastMessage);();
-      await loggedOutUser.<enter function>();
     }, DEFAULT_SPEC_TIMEOUT_MSECS
   );
 
