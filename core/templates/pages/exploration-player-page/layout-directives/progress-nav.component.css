@@ -21,7 +21,7 @@
 }
 
 .progress-nav-bar .continue-button {
-  margin-bottom: 8px;
+  margin-bottom: 64px; /*changed to increase visibility of the progress bar */
   margin-left: 8px;
   margin-right: 8px;
   margin-top: 12px;
